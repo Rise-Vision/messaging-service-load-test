@@ -1,0 +1,16 @@
+{
+  "name": "messaging-service-load-test",
+  "version": "1.0.0",
+  "description": "This is a load testing system for the Messaging Service. It sets up multiple instances of a Simulated Display (client).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "primus": "^7.3.4",
+    "ws": "^3.3.3"
+  }
+}
