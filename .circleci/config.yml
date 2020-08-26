@@ -44,7 +44,7 @@ workflows:
   version: 2
   workflow1:
     jobs:
-      - "build_image":
+      - "build_image"
       - "deploy":
           requires:
             - build_image
