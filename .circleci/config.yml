@@ -9,7 +9,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: "echo Building version ${CIRCLE_SHA1}"
-      - run: "echo ${ACCT_AUTH} | base64 -d > ${HOME}//gcloud-service-key.json"
+      - run: "echo ${ACCT_AUTH} | base64 -d -i > ${HOME}//gcloud-service-key.json"
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
       - run: gcloud config set project $PROJECT_ID
       - setup_remote_docker
@@ -27,7 +27,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: "echo ${ACCT_AUTH} | base64 -d > ${HOME}//gcloud-service-key.json"
+      - run: "echo ${ACCT_AUTH} | base64 -d -i > ${HOME}//gcloud-service-key.json"
       - run: gcloud --quiet config set container/cluster messaging-service-load-test
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
       - run: gcloud config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
