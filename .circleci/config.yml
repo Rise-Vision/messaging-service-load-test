@@ -36,7 +36,8 @@ jobs:
       - run: echo "Pushing image $DOCKER_IMAGE_NAME to registry..."
       - setup_remote_docker
       - run: docker load < ./dockerImage.tar
-      - run: gcloud docker -- push ${DOCKER_IMAGE_NAME}
+      - run: gcloud auth configure-docker
+      - run: docker push gcr.io/${PROJECT_ID}/:${DOCKER_IMAGE_NAME}:${CIRCLE_SHA1}
       - run: kubectl patch deployment messaging-service-load-test -p '{"spec":{"template":{"spec":{"containers":[{"name":"messaging-service-load-test","image":"'"$DOCKER_IMAGE_NAME"':'"${CIRCLE_SHA1}"'"}]}}}}'
 
 workflows:
