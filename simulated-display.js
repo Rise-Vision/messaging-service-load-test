@@ -37,6 +37,10 @@ module.exports = {
 
       connection.on("open", ()=>{
         console.log(`messaging service connected ${displayId}`);
+        connection.write({
+          topic: "WATCHLIST-COMPARE",
+          lastChanged: Date.now()
+        });
       });
 
       connection.on("close", ()=>{
@@ -47,8 +51,9 @@ module.exports = {
         console.log(`messaging service disconnected ${disconnected}`);
       });
 
-      connection.on("data", ()=>{
+      connection.on("data", (data)=>{
         console.log(`data recieved ${displayId}`);
+        console.log(data);
       });
 
       connection.on("error", (error)=>{

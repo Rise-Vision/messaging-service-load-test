@@ -2,7 +2,7 @@
 
 This is a load testing system for the Messaging Service. It sets up multiple instances of a Simulated Display (client).
 
-Every client connects to a configurable endpoint and optionally drops connection and reconnects on an interval.
+Every client connects to a configurable endpoint.
 
 The clients can be confgiured to connect at startup, or check a synchronous flag so that they all start up at roughly the same time for maximum load spike.
 
@@ -51,7 +51,7 @@ kubectl apply -f messaging-service-load-test.yaml
 
 ###### Scale node count
 ```
-cloud container clusters resize messaging-service-load-test --node-pool default-pool --num-nodes 30
+gcloud container clusters resize messaging-service-load-test --zone=us-central1-c --node-pool default-pool --num-nodes 30
 ```
 
 ###### Scale pod count
