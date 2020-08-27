@@ -39,7 +39,7 @@ jobs:
       - run: docker tag ${DOCKER_IMAGE_NAME}:${CIRCLE_SHA1} gcr.io/$PROJECT_ID/$DOCKER_IMAGE_NAME:$CIRCLE_SHA1
       - run: gcloud auth configure-docker
       - run: docker push gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME}:${CIRCLE_SHA1}
-      - run: kubectl patch deployment messaging-service-load-test -p '{"spec":{"template":{"spec":{"containers":[{"name":"messaging-service-load-test","image":"'"$DOCKER_IMAGE_NAME"':'"${CIRCLE_SHA1}"'"}]}}}}'
+      - run: kubectl patch deployment messaging-service-load-test -p '{"spec":{"template":{"spec":{"containers":[{"name":"messaging-service-load-test","image":"gcr.io/'"$PROJECT_ID"'/'"$DOCKER_IMAGE_NAME"':'"${CIRCLE_SHA1}"'"}]}}}}'
 
 workflows:
   version: 2

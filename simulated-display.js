@@ -2,7 +2,8 @@ const Primus = require("primus");
 const crypto = require("crypto");
 
 const {
-  MS_ENDPOINT: msEndpoint = ""
+  MS_ENDPOINT: msEndpoint = "",
+  SIMULATE_INITIAL_DISPLAY_STARTUP: simStartup = false
 } = process.env;
 
 const Socket = Primus.createSocket({
@@ -27,20 +28,24 @@ module.exports = {
       const machineId = Math.random();
 
       const connection = new Socket(`${msEndpoint}?displayId=${displayId}&machineId=${machineId}`, {
+        pingTimeout: 45000,
         reconnect: {
-          max: 1800000,
+          max: 600000,
           min: 5000,
-          retries: 8
+          retries: Infinity
         },
         manual: true
       });
 
       connection.on("open", ()=>{
         console.log(`messaging service connected ${displayId}`);
-        connection.write({
-          topic: "WATCHLIST-COMPARE",
-          lastChanged: Date.now()
-        });
+
+        if (simStartup) {
+          connection.write({
+            topic: "WATCHLIST-COMPARE",
+            lastChanged: Date.now()
+          });
+        }
       });
 
       connection.on("close", ()=>{
